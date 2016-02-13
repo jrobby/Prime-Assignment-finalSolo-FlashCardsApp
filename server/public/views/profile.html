@@ -1,8 +1,9 @@
 
 
 <!doctype html>
-<html lang='en' ng-app="myApp">
-<head>
+<html ng-app="myApp">
+<head lang='en'>
+
     <meta charset="UTF-8">
     <title>User Home</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -10,20 +11,22 @@
     <style>body { padding-top:80px; }</style>
     <!--<link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <script src="vendors/angular/angular.min.js"></script>
+    <script src="vendors/angular-route/angular-route.min.js"></script>
     <script src="assets/scripts/client.min.js"></script>
+    <base href="/">
 
 </head>
 <body ng-controller="MainController">
+
 <div class="container">
 
     <div class="jumbotron text-center">
         <h1>{{user.data.email}}'s Home Page</h1>
 
-        <div class="row">
-            <!-- LOCAL INFORMATION -->
-        </div>
+
 
         <h3>Make New Deck </h3>
+
 
         <form action="/makeDeck" method="post">
 
@@ -43,6 +46,16 @@
 
     </div>
 
+
+    <ul class="nav nav-pills">
+        <!--<li ><a data-toggle="pill" href="#home">Home</a></li>-->
+        <li> <a data-toggle="pill" href="/userCardz" class="btn btn-address btn-lg">Your Cardz</button></a></li>
+        <li> <a data-toggle="pill" href="/cardDisplay" class="btn btn-order btn-lg">Review Cards</button></a></li>
+    </ul>
+
+
+
+<div ng-view></div>
 
 </div>
 </body>

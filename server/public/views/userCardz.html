@@ -1,0 +1,41 @@
+
+
+
+<hr>
+
+<button ng-click="getUserCardz(user.data.email)">Get {{user.data.email}}'s Cardz</button>
+
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>How well known</th>
+            <th>Deck</th>
+            <th>Delete </th>
+
+        </tr>
+        </thead>
+
+        <tbody ng-repeat="item in cardz">
+        <tr>
+            <td>{{item.question}}</td>
+            <td>{{item.answer}}</td>
+            <td> {{item.howwellknown}}</td>
+            <td>{{item.deck}}</td>
+            <td><button ng-click="deletequestion(item.id)">Delete</button></td>
+
+
+        </tr>
+
+        </tbody>
+        <br>
+
+    </table>
+
+</div>
+
+
+
+

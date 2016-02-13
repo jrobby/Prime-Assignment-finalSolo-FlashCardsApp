@@ -17,6 +17,12 @@ router.get('/', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
+//
+//router.get('/*', function(request, response){
+//    response.redirect('/');
+//});
+
+
 // =====================================
 // LOGIN ===============================
 // =====================================
@@ -34,7 +40,7 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 
 router.post('/makeDeck', function(req,res){
-
+    console.log('req.user:', req.user);
 
     //var color = req.body.color;
     var results = {};
@@ -72,7 +78,6 @@ router.post('/makeDeck', function(req,res){
     res.redirect('/profile');
 
 });
-
 
 
 

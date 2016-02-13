@@ -1,27 +1,25 @@
 /**
- * Created by robbynewman on 2/6/16.
+ * Created by robbynewman on 2/8/16.
  */
 var express = require('express');
 var router = express.Router();
 var pg = require('pg');
-var connectionString = 'postgres://localhost:5432/flash_cardz_1';
+var connectionString = process.env.DATABASE_URL ||
+    'postgres://localhost:5432/flash_cardz_1';
 
-
-router.get('/read', function(req, res) {
-
+//Get all addresses
+router.get('/', function(req, res) {
     var results = [];
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
-        // Handle connection errors
+        // Handle Errors
         if(err) {
-            done();
             console.log(err);
-            return res.status(500).json({ success: false, data: err});
         }
 
         // SQL Query > Select Data
-        var query = client.query("SELECT * FROM cardz ORDER BY id ASC;");
+        var query = client.query('SELECT * FROM cardz;');
 
         // Stream results back one row at a time
         query.on('row', function(row) {
@@ -30,7 +28,7 @@ router.get('/read', function(req, res) {
 
         // After all data is returned, close connection and return results
         query.on('end', function() {
-            done();
+            client.end();
             return res.json(results);
         });
 
@@ -38,3 +36,4 @@ router.get('/read', function(req, res) {
 
 });
 
+module.exports = router;

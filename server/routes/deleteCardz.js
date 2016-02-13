@@ -44,3 +44,5 @@ router.delete('/:card_id', function(req, res) {
     });
 
 });
+
+module.exports = router;

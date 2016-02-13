@@ -12,6 +12,17 @@ var LocalStrategy   = require('passport-local').Strategy;
 var pg           = require('pg');
 var index = require('./routes/index');
 
+//
+var read = require('./routes/getUserCardz');
+//
+//var create = require('./routes/createCardz');
+//
+var remove = require('./routes/deleteCardz');
+//
+//var update = require('./routes/updateCardz');
+//
+//var getAll = require('./routes/getAllCardz');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -26,7 +37,7 @@ var User = require('./models/user');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(flash());
+//app.use(flash());
 
 app.use(express.static('server/public'));
 
@@ -40,7 +51,7 @@ app.use(session({
     secret: 'secret',
     resave: true,
     saveUninitialized: false,
-    cookie: {maxAge: 60000, secure: false}
+    cookie: {maxAge: 600000, secure: false}
 }));
 
 
@@ -109,7 +120,7 @@ passport.use('local-signup', new LocalStrategy({
 
                     user.email    = req.body.email;
                     user.password = req.body.password;
-                    //user.username = req.body.username;
+                    user.username = req.body.username;
                     //user.color = req.body.color;
                     //newUser.photo = 'http://www.flippersmack.com/wp-content/uploads/2011/08/Scuba-diving.jpg';
 
@@ -169,6 +180,13 @@ passport.use('local-login', new LocalStrategy({
 //var index = require('./routes/index.js'); // load our routes and pass in our client and fully configured passport
 
 app.use('/', index);
+
+//app.use('/getAllCardz', getAll);
+app.use('/getUserCardz', read);
+//app.use('/createCardz', create);
+//app.use('/updateCardz', update);
+//app.use('/deleteCardz', remove);
+
 
 // launch ======================================================================
 

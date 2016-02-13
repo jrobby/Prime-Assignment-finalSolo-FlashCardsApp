@@ -1,10 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>cardz</title>
-</head>
-<body>
 
-</body>
-</html>
+
+<!--<label for="selected"> Select user: </label>-->
+<!--<select name="selected" id="selected" ng-model="data.selected" >-->
+    <!--<option ng-repeat="option in data.options" value="{{option.id}}">-->
+        <!--{{option.name}}-->
+    <!--</option>-->
+<!--</select>-->
+<!--ng-change="getUserAddresses(data.selected)"-->
+
+<form name="myForm">
+    <label for="selected"> Select deck: </label>
+    <select name="selected" id="selected" ng-model="deckselected" ng-change="getDeck(user.data.email,deckselected)">
+
+        <option ng-repeat="option in data.options" value="{{option}}">
+            {{option}}
+        </option>
+    </select>
+
+</form>
+<hr>
+
+<!--<button ng-click="getUserCardz(user.data.email)">Get {{user.data.email}}'s Cardz</button>-->
+
+
+<!--<button ng-click="getDeck(user.data.email, deckselected)">Get Deck</button>-->
+{{data.selected}}
+
+{{option}}
+
+
+
+
+<!--<div class="container">-->
+    <!--<table class="table">-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th>Question</th>-->
+            <!--<th>Answer</th>-->
+            <!--<th>How well known</th>-->
+            <!--<th>Deck</th>-->
+            <!--<th>Delete </th>-->
+
+
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody ng-repeat="item in deck">-->
+        <!--<tr>-->
+            <!--<td>{{item.question}}</td>-->
+            <!--<td>{{item.answer}}</td>-->
+            <!--<td> {{item.howwellknown}}</td>-->
+            <!--<td>{{item.deck}}</td>-->
+            <!--<td><button ng-click="deletequestion(item.id)">Delete</button></td>-->
+
+        <!--</tr>-->
+
+        <!--</tbody>-->
+        <!--<br>-->
+
+    <!--</table>-->
+
+<!--</div>-->
+
+
+
+<!--<form name="myForm">-->
+    <!--<label for="selected"> Select user: </label>-->
+    <!--<select name="selected" id="selected" ng-model="data.selected" >-->
+
+    <!--<option ng-repeat="option in data.options" value="option">-->
+        <!--{{option}}-->
+    <!--</option>-->
+<!--</select>-->
+
+<!--</form>-->
+
+<hr>
+<div class="carousel">
+
+
+    <div class="cardContainer">
+
+
+    </div>
+    <button class="bttn" ng-click="prev()">PREV</button>
+
+    <button class="bttn" ng-click="next()">NEXT</button>
+
+
+</div>
+
+index:
+{{index}}
+
+
+<div class="jumbotron text-center">
+
+<h1 class="jumbotron text-center">{{deck[index].question}}</h1>
+
+<!--<button ng-click="">show answer</button>-->
+
+<h2 ng-show="false">{{deck[index].answer}}</h2>
+
+
+
+<a ng-click="isAnswerShown = !isAnswerShown">Show Answer</a>
+<div class="jumbotron text-center" ng-show="isAnswerShown" id="answerShown">
+
+  <h1> {{deck[index].answer}} </h1>
+</div>
+
+</div>
