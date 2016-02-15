@@ -1,0 +1,28 @@
+<h3>Make New Deck </h3>
+
+
+<form action="/makeDeck" method="post">
+    <div class="col-xs-2">
+        <label for="deck">Deck: </label>
+        <input class="form-control" type="text" id="deck" name="deck" ng-model="deck" type="text">
+    </div>
+    <div class="col-xs-4">
+        <label for="question">Question: </label>
+        <input class="form-control" type="text" id="question" name="question" ng-model="question" type="text">
+    </div>
+
+
+    <div class="col-xs-4">
+        <label for="answer">Answer: </label>
+        <input class="form-control" type="text" id="answer" name="answer" ng-model="answer" type="text">
+    </div>
+
+     <div class="col-xs-2">
+        <label for="known">How well do you know it (1-5): </label>
+        <input class="form-control" type="number" id="known" name="known" ng-model="known" type="text">
+    </div>
+
+
+    <input class="submit" type="submit" value="Submit">
+
+</form>

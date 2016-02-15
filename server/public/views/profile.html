@@ -6,10 +6,13 @@
 
     <meta charset="UTF-8">
     <title>User Home</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
     <style>body { padding-top:80px; }</style>
     <!--<link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendors/bootstrap/dist/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <script src="vendors/angular/angular.min.js"></script>
     <script src="vendors/angular-route/angular-route.min.js"></script>
     <script src="assets/scripts/client.min.js"></script>
@@ -19,44 +22,95 @@
 <body ng-controller="MainController">
 
 <div class="container">
+    <ul class="nav nav-pills">
+        <li ><a data-toggle="pill" href="/logout">Logout</a></li>
+        <!--<li> <a href="/">home</a></li>-->
+        <!--<li> <a data-toggle="pill" href="/addCardz" class="btn btn-address btn-lg">Add cardz</button></a></li>-->
+        <li> <a data-toggle="pill" href="/cardDisplay" class="btn btn-order btn-lg">Review Cardz</button></a></li>
+
+    </ul>
 
     <div class="jumbotron text-center">
-        <h1>{{user.data.email}}'s Home Page</h1>
+        <!--<h3>Hello {{user.data.email}}</h3>-->
 
 
+        <a ng-click="isMakeDeckShown = !isMakeDeckShown">Add Card </a>
+        <div ng-show="isMakeDeckShown" id="MakeDeckShown">
+            <form  action="/makeDeck" method="post">
+                <h3>Add a new card </h3>
+                <div class="col-xs-2">
+                    <label for="deck">Deck: </label>
+                    <input class="form-control" type="text" id="deck" name="deck" ng-model="deck" type="text">
+                </div>
+                <div class="col-xs-4">
+                    <label for="question">Question: </label>
+                    <input class="form-control" type="text" id="question" name="question" ng-model="question" type="text">
+                </div>
 
-        <h3>Make New Deck </h3>
+
+                <div class="col-xs-4">
+                    <label for="answer">Answer: </label>
+                    <input class="form-control" type="text" id="answer" name="answer" ng-model="answer" type="text">
+                </div>
+
+                <div class="col-xs-2">
+                    <label for="known">How well do you know it (1-5): </label>
+                    <select ng-model="known" id="known" name="known" ng-options="item for item in names">
+                    </select>
 
 
-        <form action="/makeDeck" method="post">
+                    <!--<input class="form-control" type="number" id="known" name="known" ng-model="known">-->
+                </div>
 
-            Deck:        <input type="text" id="deck" name="deck" ng-model="deck">
+                <!--<label for="selected"> <h2>Select deck:</h2> </label>--
+                <select ng-model="selectedName" ng-options="item for item in names">
+</select>>
+                <!--<select name="selected" id="selected" ng-model="deckselected">-->
 
-            Question:    <input type="text" id="question" name="question" ng-model="question">
+                    <!--<option ng-repeat="option in data.options" value="{{option}}">-->
+                        <!--{{option}}-->
+                    <!--</option>-->
+                <!--</select>-->
 
-            Answer:    <input type="text" id="answer" name="answer" ng-model="answer">
+                <input class="submit" type="submit" value="Submit">
+            </form>
+        </div>
 
-            How well do you know it:   <input type="text" id="howwellknown" name="howwellknown" ng-model="howwellknown">
 
-            <input class="submit" type="submit" value="Submit">
+        <!--<form  action="/makeDeck" method="post">-->
+            <!--<h3>Add a new card </h3>-->
+            <!--<div class="col-xs-2">-->
+                <!--<label for="deck">Deck: </label>-->
+                <!--<input class="form-control" type="text" id="deck" name="deck" ng-model="deck" type="text">-->
+            <!--</div>-->
+            <!--<div class="col-xs-4">-->
+                <!--<label for="question">Question: </label>-->
+                <!--<input class="form-control" type="text" id="question" name="question" ng-model="question" type="text">-->
+            <!--</div>-->
 
-        </form>
-
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+            <!--<div class="col-xs-4">-->
+                <!--<label for="answer">Answer: </label>-->
+                <!--<input class="form-control" type="text" id="answer" name="answer" ng-model="answer" type="text">-->
+            <!--</div>-->
+            <!--<div class="col-xs-2">-->
+                <!--<label for="known">How well do you know it (1-5): </label>-->
+                <!--<input class="form-control" type="number" id="known" name="known" ng-model="known">-->
+            <!--</div>-->
+            <!--<input class="submit" type="submit" value="Submit">-->
+        <!--</form>-->
+        <!--<h2>{{user.data.email}}'s Home Page</h2>-->
+        <!--<a href="http://localhost:3000/">logout link?</a>-->
+        <!--<a href="/thankyou" class="btn btn-default btn-sm">Logout</a>-->
 
     </div>
 
-
-    <ul class="nav nav-pills">
-        <!--<li ><a data-toggle="pill" href="#home">Home</a></li>-->
-        <li> <a data-toggle="pill" href="/userCardz" class="btn btn-address btn-lg">Your Cardz</button></a></li>
-        <li> <a data-toggle="pill" href="/cardDisplay" class="btn btn-order btn-lg">Review Cards</button></a></li>
-    </ul>
-
-
+    <!--<p>Or go <a href="/">home</a>.</p>-->
 
 <div ng-view></div>
 
 </div>
+</div>
+
+
 </body>
 </html>

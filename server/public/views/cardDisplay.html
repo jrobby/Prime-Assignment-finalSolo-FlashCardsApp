@@ -8,25 +8,59 @@
 <!--</select>-->
 <!--ng-change="getUserAddresses(data.selected)"-->
 
+
 <form name="myForm">
-    <label for="selected"> Select deck: </label>
-    <select name="selected" id="selected" ng-model="deckselected" ng-change="getDeck(user.data.email,deckselected)">
+    <label for="selected"> <h2>Select deck:</h2> </label>
+    <select name="selected" id="selected" ng-model="deckselected">
 
         <option ng-repeat="option in data.options" value="{{option}}">
             {{option}}
         </option>
     </select>
 
+    Which cards do you want to include in your review?
+
+    One:
+    <input type="checkbox"  name = "one" id="one" ng-model="checkbox.one" ng-true-value="'one'" ng-false-value="'zero'" >
+ Two:
+    <input type="checkbox" id="two" name="two" ng-model="checkbox.two" ng-true-value="'two'" ng-false-value="'zero'">
+ Three:
+    <input type="checkbox" id="three" name="three" ng-model="checkbox.three" ng-true-value="'three'" ng-false-value="'zero'">
+ Four:
+    <input type="checkbox" id="four" name="four" ng-model="checkbox.four" ng-true-value="'four'" ng-false-value="'zero'">
+ Five:
+    <input type="checkbox" id="five" name="five" ng-model="checkbox.five" ng-true-value="'five'" ng-false-value="'zero'">
+
 </form>
+
+
+<p> one is {{checkbox.one}}</p>
+
+
+<p> two is {{checkbox.two}}</p>
+
+
+<p> three is {{checkbox.three}}</p>
+
+
+<p> four is {{checkbox.four}}</p>
+
+
+<p> three is {{checkbox.five}}</p>
+
+
+
 <hr>
 
 <!--<button ng-click="getUserCardz(user.data.email)">Get {{user.data.email}}'s Cardz</button>-->
 
 
-<!--<button ng-click="getDeck(user.data.email, deckselected)">Get Deck</button>-->
-{{data.selected}}
+<button ng-click="getDeck(user.data.email, deckselected, checkbox.one, checkbox.two, checkbox.three, checkbox.four, checkbox.five)">Get Deck</button>
 
-{{option}}
+
+<!--{{data.selected}}-->
+
+<!--{{option}}-->
 
 
 
@@ -79,34 +113,31 @@
 
 
     <div class="cardContainer">
+        <div class="jumbotron text-center">
 
+            <h1>{{deck[index].question}}</h1>
+
+            <!--<button ng-click="">show answer</button>-->
+
+            <h2 ng-show="false">{{deck[index].answer}}</h2>
+
+
+            <a ng-click="isAnswerShown = !isAnswerShown">Show/Hide Answer</a>
+            <div ng-show="isAnswerShown" id="answerShown">
+
+                <h1> {{deck[index].answer}} </h1>
+            </div>
+
+        </div>
 
     </div>
-    <button class="bttn" ng-click="prev()">PREV</button>
+    <button class="btn btn-lg"  ng-click="prev()">PREV</button>
 
-    <button class="bttn" ng-click="next()">NEXT</button>
+    <button class="btn btn-primary btn-lg" ng-click="next()">NEXT</button>
 
 
 </div>
 
-index:
-{{index}}
-
-
-<div class="jumbotron text-center">
-
-<h1 class="jumbotron text-center">{{deck[index].question}}</h1>
-
-<!--<button ng-click="">show answer</button>-->
-
-<h2 ng-show="false">{{deck[index].answer}}</h2>
 
 
 
-<a ng-click="isAnswerShown = !isAnswerShown">Show Answer</a>
-<div class="jumbotron text-center" ng-show="isAnswerShown" id="answerShown">
-
-  <h1> {{deck[index].answer}} </h1>
-</div>
-
-</div>

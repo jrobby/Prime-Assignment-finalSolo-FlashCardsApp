@@ -11,16 +11,20 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
             templateUrl: 'views/cardDisplay.html',
             controller: 'CardController'
         })
-        .when('/userCardz', {
-            templateUrl: 'views/userCardz.html',
+        .when('/addCardz', {
+            templateUrl: 'views/addCardz.html',
             controller: 'CardController'
+        })
+        .when('/logout', {
+            templateUrl: 'views/index.html',
+            controller: 'LogoutController'
         });
     $locationProvider.html5Mode(true);
 }]);
 
 
 app.controller('MainController', ['$scope', '$http', function($scope, $http){
-
+    $scope.names = ["one", "two", "three", "four", "five"];
     $http.get('getUser').then(function(response){
         $scope.user = response;
 
@@ -29,14 +33,13 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http){
         $scope.user.data.username = response.data.username;
 
         //$scope.user.data.id = response.data.id;
-
     });
-
-
 
 }]);
 
+app.controller('AddCardController', ['$scope', 'http', function($scope, $http){
 
+}])
 app.controller('CardController', ['$scope', '$http', function($scope, $http){
 
 
@@ -62,6 +65,9 @@ app.controller('CardController', ['$scope', '$http', function($scope, $http){
     //    //console.log('orders: ', $scope.orders);
     //
     //});
+    //
+
+$scope.names = ["one", "two", "three", "four", "five"];
 var email = $scope.user.data.email;
 console.log('email',email);
 
@@ -82,65 +88,25 @@ console.log('email',email);
         }
         console.log('indexOf test', $scope.data.options.indexOf('two'));
         console.log("options", $scope.data.options);
+
         //console.log($scope.users);
-
         //console.log('orders: ', $scope.orders);
-
     });
-
-    $scope.getUserCardz = function(email){
-
-        $http.get('/getUserCardz/' + email).then(function (response) {
-            $scope.cardz = response.data;
-            $scope.data = {
-                repeatSelect: null,
-                options: [],
-            };
-            for (var i = 0; i<$scope.cardz.length; i++){
-                if ($scope.data.options.indexOf($scope.cardz[i].deck) == -1) {
-                    $scope.data.options.push($scope.cardz[i].deck);
-                }
-
-
-                //$scope.data.options.push($scope.cardz[i].deck);
-
-            }
-            console.log('indexOf test', $scope.data.options.indexOf('two'));
-            console.log("options", $scope.data.options);
-            //console.log($scope.users);
-
-            //console.log('orders: ', $scope.orders);
-
-        });
-    }
 
     $scope.index=0;
     $scope.deck;
 
-    $scope.getDeck = function(email, deck){
-        $http.get('/getUserCardz/' + email +'/'+ deck).then(function (response) {
+    $scope.getDeck = function(email, deck, one, two, three, four, five){
+        console.log('1,2,3,4,5', one, two, three, four, five);
+
+        $http.get('/getUserCardz/' + email +'/'+ deck + "/" + one + "/" + two + "/" + three + "/" + four + "/" + five).then(function (response) {
             $scope.deck = response.data;
 
             console.log('deck: ', $scope.deck);
 
         });
-
-        //$scope.index = 1;
-
-        //for (var i = 0; i < deck.length; i++) {
-        //    $('#cardContainer').append('<div class="index-point" id=' + i + '>' +
-        //        '<br>' +
-        //        '<p>' + $scope.deck[i].question + '</p>'+
-        //        '<br>' +
-        //        '<p>' + $scope.deck[i].answer + '</p>' +
-        //        '<br>' +
-        //        '<p>' + $scope.deck[i].howwellknown + '</p>' +
-        //        '<br>' +
-        //            //'<img src="' + things[i].img + '" alt="'+things[i].animal+'"/>');
-        //        '</div>');
-        //    $('#'+i).hide();
-        //}
     }
+    // "/" + checkbox.one + "/" + checkbox.two + "/" + checkbox.three + "/" + checkbox.four + "/" + checkbox.five
 
     $scope.next = function(){
         $scope.isAnswerShown = false;
@@ -181,17 +147,24 @@ console.log('email',email);
     };
 
 
-    //get('/getUserCardz').then(function(response) {
-    //    $scope.users = response.data;
-    //    $scope.data = {
-    //        repeatSelect: null,
-    //        options: [],
-    //    };
-    //    for (var i = 0; i<$scope.users.length; i++){
-    //        $scope.data.options.push($scope.users[i]);
-    //    }
-    //    console.log($scope.users);
-    //});
+
+    $scope.checkbox = {
+        one : "one",
+        two: "two",
+        three: "three",
+        four: "four",
+        five: "five"
+    };
 
 
-    }]);
+
+}]);
+
+
+//
+//app.controller('LogoutController', ['$location', function($location){
+//    Session.clear();
+//    $location.path('/fail');
+//
+//}]);
+

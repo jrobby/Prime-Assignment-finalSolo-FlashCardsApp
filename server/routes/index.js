@@ -51,7 +51,7 @@ router.post('/makeDeck', function(req,res){
     var email = req.user.email;
     var question = req.body.question;
     var answer = req.body.answer;
-    var howwellknown = req.body.howwellknown;
+    var known = req.body.known;
 
 
 
@@ -63,7 +63,7 @@ router.post('/makeDeck', function(req,res){
 
 
         var query2 = client.query('INSERT INTO cardz' +
-            '(deck, question, answer, howwellknown, email) values($1, $2, $3, $4, $5)',[deck, question, answer, howwellknown, email]);
+            '(deck, question, answer, known, email) values($1, $2, $3, $4, $5)',[deck, question, answer, known, email]);
 
 
         query2.on('row', function (row) {
@@ -79,7 +79,9 @@ router.post('/makeDeck', function(req,res){
 
 });
 
-
+//router.get('/addCardz', function(req,res){
+//
+//})
 
 // =====================================
 // SIGNUP ==============================
@@ -125,6 +127,10 @@ router.get('/profile', function(request, response) {
     }
 });
 
+//router.get('/thankyou', function(req, res){
+//    response.sendFile(path.join(__dirname, '../public/views/addCardz.html'));
+//});
+
 
 router.get('/fail', function(request, response){
     response.sendFile(path.join(__dirname, '../public/views/fail.html'));
@@ -152,8 +158,15 @@ router.get('/getUser', function(request, response){
 // =====================================
 // LOGOUT ==============================
 // =====================================
+//router.get('/logout', function(req, res) {
+//    req.logout();
+//    res.redirect('/');
+//});
+
 router.get('/logout', function(req, res) {
+    console.log('logging out now')
     req.logout();
+    console.log('you got logged out')
     res.redirect('/');
 });
 

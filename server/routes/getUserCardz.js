@@ -74,14 +74,24 @@ router.get('/:userEmail', function(req, res) {
 });
 
 
-router.get('/:userEmail/:deck', function(req, res) {
-
+router.get('/:userEmail/:deck/:one/:two/:three/:four/:five', function(req, res) {
+console.log('req.body', req.body);
     var results = [];
 
     // Grab data from the URL parameters
+    //var checkOne = req.body.one;
+    //console.log('checkOne', checkOne);
     var email = req.params.userEmail;
     var deck = req.params.deck;
+    var one = req.params.one;
+    var two = req.params.two;
+    var three = req.params.three;
+    var four = req.params.four;
+    var five = req.params.five;
 
+    numbers = [one, two, three, four, five];
+
+console.log('1,2,3,4,5', one, two, three, four, five);
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -96,7 +106,12 @@ router.get('/:userEmail/:deck', function(req, res) {
 
 
         // SQL Query > Delete Data
-        var query = client.query('SELECT * FROM cardz WHERE email=($1) AND deck = ($2)', [email, deck]);
+        var query = client.query('SELECT * FROM cardz WHERE email=($1) AND deck = ($2) AND ' +
+            '(known = ($3) OR ' +
+            'known = ($4) OR ' +
+            'known = ($5) OR ' +
+            'known = ($6) OR ' +
+            'known = ($7))', [email, deck, one, two, three, four, five]);
 
 
         // Stream results back one row at a time
