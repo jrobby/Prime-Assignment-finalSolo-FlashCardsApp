@@ -19,7 +19,7 @@ var read = require('./routes/getUserCardz');
 //
 var remove = require('./routes/deleteCardz');
 //
-//var update = require('./routes/updateCardz');
+var update = require('./routes/updateCardz');
 //
 //var getAll = require('./routes/getAllCardz');
 
@@ -184,7 +184,7 @@ app.use('/', index);
 //app.use('/getAllCardz', getAll);
 app.use('/getUserCardz', read);
 //app.use('/createCardz', create);
-//app.use('/updateCardz', update);
+app.use('/updateKnown', update);
 //app.use('/deleteCardz', remove);
 
 

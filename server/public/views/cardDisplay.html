@@ -1,139 +1,67 @@
 
 
-<!--<label for="selected"> Select user: </label>-->
-<!--<select name="selected" id="selected" ng-model="data.selected" >-->
-    <!--<option ng-repeat="option in data.options" value="{{option.id}}">-->
-        <!--{{option.name}}-->
-    <!--</option>-->
-<!--</select>-->
-<!--ng-change="getUserAddresses(data.selected)"-->
+<div class="jumbotron">
+<ul>
 
+    <li><form  class="deckSelect" name="myForm">
+        <label for="selected"> <h3>Select deck:</h3> </label>
+        <select name="selected" id="selected" ng-model="deckselected">
+            <option ng-repeat="option in data.options" value="{{option}}">
+                {{option}}
+            </option>
+        </select>
 
-<form name="myForm">
-    <label for="selected"> <h2>Select deck:</h2> </label>
-    <select name="selected" id="selected" ng-model="deckselected">
+        <h4> Which {{deckselected}} cards do you want to include in your review?</h4>
 
-        <option ng-repeat="option in data.options" value="{{option}}">
-            {{option}}
-        </option>
-    </select>
+        <label for="one"> (one) Know:  </label>
+        <input type="checkbox"  name = "one" id="one" ng-model="checkbox.one" ng-true-value="'one'" ng-false-value="'zero'" >
+        (two) Barely Known:
+        <input type="checkbox" id="two" name="two" ng-model="checkbox.two" ng-true-value="'two'" ng-false-value="'zero'">
+       (three) Kind of Known:
+        <input type="checkbox" id="three" name="three" ng-model="checkbox.three" ng-true-value="'three'" ng-false-value="'zero'">
+        (four) Mostly Known:
+        <input type="checkbox" id="four" name="four" ng-model="checkbox.four" ng-true-value="'four'" ng-false-value="'zero'">
+       (five) Known:
+        <input type="checkbox" id="five" name="five" ng-model="checkbox.five" ng-true-value="'five'" ng-false-value="'zero'">
+        <button ng-click="getDeck(user.data.email, deckselected, checkbox.one, checkbox.two, checkbox.three, checkbox.four, checkbox.five)">Get Deck</button>
 
-    Which cards do you want to include in your review?
+    </form>
+    </li>
 
-    One:
-    <input type="checkbox"  name = "one" id="one" ng-model="checkbox.one" ng-true-value="'one'" ng-false-value="'zero'" >
- Two:
-    <input type="checkbox" id="two" name="two" ng-model="checkbox.two" ng-true-value="'two'" ng-false-value="'zero'">
- Three:
-    <input type="checkbox" id="three" name="three" ng-model="checkbox.three" ng-true-value="'three'" ng-false-value="'zero'">
- Four:
-    <input type="checkbox" id="four" name="four" ng-model="checkbox.four" ng-true-value="'four'" ng-false-value="'zero'">
- Five:
-    <input type="checkbox" id="five" name="five" ng-model="checkbox.five" ng-true-value="'five'" ng-false-value="'zero'">
+    <li><div class="card">
 
-</form>
+        <h2>{{deck[index].question}}</h2>
+        <br>
+        <button class="mybuttons"  ng-click="prev()">PREV</button>
+        <button class="mybuttons" ng-click="next()">NEXT</button>
+        <br>
+        <a ng-click="isAnswerShown = !isAnswerShown">Show/Hide Answer</a>
+        <h4 ng-show="false">{{deck[index].answer}}</h4>
+        <div class="jumbotron" ng-show="isAnswerShown" id="answerShown">
 
+            <h3> {{deck[index].answer}} </h3>
+<br><br>
+            <br>
+<br><br>
+            <br>
+<br><br>
+            <br>
 
-<p> one is {{checkbox.one}}</p>
+            <div class="knowy">
+              Change how well you know this question
 
+                <form action="/updateKnown" method="post" class="known">
+                    How well do you know it? ><input type="text" id="known" ng-model="known">
 
-<p> two is {{checkbox.two}}</p>
+                    <input class="submit" type="submit" value="Submit">
+                </form>
 
-
-<p> three is {{checkbox.three}}</p>
-
-
-<p> four is {{checkbox.four}}</p>
-
-
-<p> three is {{checkbox.five}}</p>
-
-
-
-<hr>
-
-<!--<button ng-click="getUserCardz(user.data.email)">Get {{user.data.email}}'s Cardz</button>-->
-
-
-<button ng-click="getDeck(user.data.email, deckselected, checkbox.one, checkbox.two, checkbox.three, checkbox.four, checkbox.five)">Get Deck</button>
-
-
-<!--{{data.selected}}-->
-
-<!--{{option}}-->
-
-
-
-
-<!--<div class="container">-->
-    <!--<table class="table">-->
-        <!--<thead>-->
-        <!--<tr>-->
-            <!--<th>Question</th>-->
-            <!--<th>Answer</th>-->
-            <!--<th>How well known</th>-->
-            <!--<th>Deck</th>-->
-            <!--<th>Delete </th>-->
-
-
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody ng-repeat="item in deck">-->
-        <!--<tr>-->
-            <!--<td>{{item.question}}</td>-->
-            <!--<td>{{item.answer}}</td>-->
-            <!--<td> {{item.howwellknown}}</td>-->
-            <!--<td>{{item.deck}}</td>-->
-            <!--<td><button ng-click="deletequestion(item.id)">Delete</button></td>-->
-
-        <!--</tr>-->
-
-        <!--</tbody>-->
-        <!--<br>-->
-
-    <!--</table>-->
-
-<!--</div>-->
-
-
-
-<!--<form name="myForm">-->
-    <!--<label for="selected"> Select user: </label>-->
-    <!--<select name="selected" id="selected" ng-model="data.selected" >-->
-
-    <!--<option ng-repeat="option in data.options" value="option">-->
-        <!--{{option}}-->
-    <!--</option>-->
-<!--</select>-->
-
-<!--</form>-->
-
-<hr>
-<div class="carousel">
-
-
-    <div class="cardContainer">
-        <div class="jumbotron text-center">
-
-            <h1>{{deck[index].question}}</h1>
-
-            <!--<button ng-click="">show answer</button>-->
-
-            <h2 ng-show="false">{{deck[index].answer}}</h2>
-
-
-            <a ng-click="isAnswerShown = !isAnswerShown">Show/Hide Answer</a>
-            <div ng-show="isAnswerShown" id="answerShown">
-
-                <h1> {{deck[index].answer}} </h1>
             </div>
 
+
         </div>
-
-    </div>
-    <button class="btn btn-lg"  ng-click="prev()">PREV</button>
-
-    <button class="btn btn-primary btn-lg" ng-click="next()">NEXT</button>
+    </div></li>
+</ul>
 
 
 </div>

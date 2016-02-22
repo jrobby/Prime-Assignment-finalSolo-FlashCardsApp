@@ -8,15 +8,17 @@ var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/flash_cardz_1';
 
 
-router.put('/:card_id', function(req, res) {
-
+router.post('/:id/:known', function(req, res) {
     var results = [];
+    var id = req.user.id;
 
     // Grab data from the URL parameters
-    var id = req.params.card_id;
+    var id = req.params.id;
+    var known = req.params.known;
+    console.log('server side: id and known', id, known);
 
     // Grab data from http request
-    var data = {question: req.body.question, answer: req.body.answer};
+    var data = {known: req.params.known, id: req.params.id};
 
     // Get a Postgres client from the connection pool
     pg.connect(connectionString, function(err, client, done) {
@@ -28,7 +30,7 @@ router.put('/:card_id', function(req, res) {
         }
 
         // SQL Query > Update Data
-        client.query("UPDATE cardz SET question=($1), answer=($2) WHERE id=($3)", [data.question, data.answer, id]);
+        client.query("UPDATE cardz SET known=($1) WHERE id=($2)", [data.known, id]);
 
         // SQL Query > Select Data
         var query = client.query("SELECT * FROM cardz ORDER BY id ASC");
@@ -44,7 +46,6 @@ router.put('/:card_id', function(req, res) {
             return res.json(results);
         });
     });
-
 });
 
 module.exports = router;
